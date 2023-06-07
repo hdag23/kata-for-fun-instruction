@@ -11,17 +11,31 @@ export class KataForFunComponent implements OnInit, OnDestroy {
 
   result: Result;
 
+  testCases: NumberConverted[] = []; 
+
   constructor(private kataForFunService: KataForFunService) { }
 
   ngOnInit(): void {
+    
   }
 
   ngOnDestroy(): void {
   }
 
   convertNumber(inputNumber: number): void {
+    let testCase: NumberConverted= {
+      numberToConvert: inputNumber,
+      result: ''
+    }
+
     this.kataForFunService.convert(inputNumber)
-    .subscribe((data: Result) => this.result = data)
+    .subscribe((data: Result) => {
+      this.result = data;
+      
+      testCase.result = this.result.result;
+      this.testCases.push(testCase);
+    })
+
   }
 
 }

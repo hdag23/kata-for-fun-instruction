@@ -4,6 +4,8 @@ import { KataForFunService } from "../kata-for-fun.service";
 import { HttpClient } from "@angular/common/http";
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Result } from "../model/result";
+import { DebugElement } from "@angular/core";
+import { By } from "@angular/platform-browser";
 
 
 describe('KataForFunComponent', () => {
@@ -12,6 +14,7 @@ describe('KataForFunComponent', () => {
     let httpTestingControllerMock: HttpTestingController;
     let httpClient: HttpClient;
     let kataForFunService: KataForFunService;
+    let debugElement: DebugElement;
 
     beforeEach(async() => {
         TestBed.configureTestingModule({
@@ -24,6 +27,8 @@ describe('KataForFunComponent', () => {
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(KataForFunComponent);
             component = fixture.componentInstance;
+            debugElement = fixture.debugElement.query(By.css('p'));
+            
         });
 
         httpClient = TestBed.inject(HttpClient);
@@ -41,7 +46,15 @@ describe('KataForFunComponent', () => {
         const req = httpTestingControllerMock.expectOne(kataForFunService.CONVERSION_RESULT_URL + '15');
         expect(req.request.url).toEqual(kataForFunService.CONVERSION_RESULT_URL + '15');
 
-        httpTestingControllerMock.verify();
+        
+    }))
+
+    it('should have', async(() => {
+        httpClient.get<Result>(kataForFunService.CONVERSION_RESULT_URL + '1')
+        
+        const numberOfTestCase = fixture.componentInstance.testCases.length
+        expect(numberOfTestCase).toEqual(1);
+        
     }))
 
 

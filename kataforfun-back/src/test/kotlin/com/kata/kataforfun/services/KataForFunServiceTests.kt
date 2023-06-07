@@ -55,4 +55,9 @@ class KataForFunServiceTests {
     fun shouldReturnForIfInputNumberIs10() {
         Assertions.assertEquals("For", KataForFunService().convertNumber(10))
     }
+
+    @Test
+    fun shouldReturnKataForIfInputNumberIs0() {
+        Assertions.assertEquals("KataFor", KataForFunService().convertNumber(0))
+    }
 }

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component
 class KataForFunService {
 
     fun convertNumber(inputNumber: Int): String {
+        if(inputNumber == 0)
+            return "KataFor"
         if(inputNumber == 3)
             return "KataKata"
         if(inputNumber == 5)

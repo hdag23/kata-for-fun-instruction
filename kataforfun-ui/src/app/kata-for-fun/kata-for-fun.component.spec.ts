@@ -9,7 +9,7 @@ import { Result } from "../model/result";
 describe('KataForFunComponent', () => {
     let fixture: ComponentFixture<KataForFunComponent>;
     let component: KataForFunComponent
-    let httpTestingControllerpMock: HttpTestingController;
+    let httpTestingControllerMock: HttpTestingController;
     let httpClient: HttpClient;
     let kataForFunService: KataForFunService;
 
@@ -27,19 +27,22 @@ describe('KataForFunComponent', () => {
         });
 
         httpClient = TestBed.inject(HttpClient);
-        httpTestingControllerpMock = TestBed.inject(HttpTestingController);
+        httpTestingControllerMock = TestBed.inject(HttpTestingController);
         kataForFunService = TestBed.inject(KataForFunService);
 
     });
 
 
 
-    it('can test HttpClient.get', async(() => {
+    it('should call HttpClient.get', async(() => {
         httpClient.get<Result>(kataForFunService.CONVERSION_RESULT_URL + '15')
         .subscribe(data => expect(data.result).toEqual("KataFor"));
 
-        const req = httpTestingControllerpMock.expectOne(kataForFunService.CONVERSION_RESULT_URL + '15');
-        expect(req.request.method).toEqual('GET');
+        const req = httpTestingControllerMock.expectOne(kataForFunService.CONVERSION_RESULT_URL + '15');
+        expect(req.request.url).toEqual(kataForFunService.CONVERSION_RESULT_URL + '15');
+
+        httpTestingControllerMock.verify();
     }))
+
 
 })

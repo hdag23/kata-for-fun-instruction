@@ -60,4 +60,21 @@ class KataForFunServiceTests {
     fun shouldReturnKataForIfInputNumberIs0() {
         Assertions.assertEquals("KataFor", KataForFunService().convertNumber(0))
     }
+
+    @Test
+    fun shouldReturnKataOnlyBecauseItIsAMultipleOf3() {
+        Assertions.assertEquals("Kata", KataForFunService().convertNumber(12))
+        Assertions.assertEquals("Kata", KataForFunService().convertNumber(18))
+        Assertions.assertEquals("Kata", KataForFunService().convertNumber(21))
+    }
+
+    @Test
+    fun shouldReturnForOnlyBecauseItIsAMultipleOf5() {
+        Assertions.assertEquals("For", KataForFunService().convertNumber(20))
+        Assertions.assertEquals("For", KataForFunService().convertNumber(40))
+        Assertions.assertEquals("For", KataForFunService().convertNumber(80))
+    }
+
+
+
 }

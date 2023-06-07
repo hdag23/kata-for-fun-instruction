@@ -12,15 +12,27 @@ class KataForFunService {
             return "KataKata"
         if(inputNumber == 5)
             return "ForFor"
-        if(inputNumber == 6)
-            return "Kata"
         if(inputNumber == 7)
             return "Fun"
-        if(inputNumber == 9)
-            return "Kata"
-        if(inputNumber == 10)
-            return "For"
-        return inputNumber.toString()
+        
+        return if (replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber).isEmpty()) inputNumber.toString() else replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber)
     }
 
+    /**
+     * convert into string when it is divisible by 3 or 5 sequentially
+     * @param inputNumber number to replace
+     * @return replace string
+     */
+    fun replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber: Int): String {
+        var replaceString: String = ""
+
+        if(inputNumber % 3 == 0)
+            replaceString += "Kata"
+        if(inputNumber % 5 == 0)
+            replaceString += "For"
+        return replaceString
+    }
+
+
 }
+

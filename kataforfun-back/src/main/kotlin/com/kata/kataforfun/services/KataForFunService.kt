@@ -7,26 +7,12 @@ class KataForFunService {
 
     fun convertNumber(inputNumber: Int): String {
 
-        if(inputNumber == 3)
-            return "KataKata"
-        if(inputNumber == 5)
-            return "ForFor"
-
-        if(inputNumber == 15)
-            return "KataForFor"
-        if(inputNumber == 30)
-            return "KataForKata"
-        if(inputNumber == 45)
-            return "KataForFor"
-
-        if (replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber).isNotEmpty())
-            return replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber)
-
-        if (replaceByKataOrForOrFunWhenItContains3Or5or7(inputNumber).isNotEmpty())
-            return replaceByKataOrForOrFunWhenItContains3Or5or7(inputNumber)
+        if (replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber).isEmpty() && replaceByKataOrForOrFunWhenItContains3Or5or7(inputNumber).isEmpty())
+            return inputNumber.toString()
 
         else
-            return inputNumber.toString()
+            return replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber) + replaceByKataOrForOrFunWhenItContains3Or5or7(inputNumber)
+
     }
 
     /**
@@ -44,6 +30,11 @@ class KataForFunService {
         return replaceString
     }
 
+    /**
+     * convert into string when it contains 3 or 5 or 7 in order of appearance
+     * @param inputNumber number to replace
+     * @return replace string
+     */
     fun replaceByKataOrForOrFunWhenItContains3Or5or7(inputNumber: Int): String {
         var containsReplaceString: String = ""
 

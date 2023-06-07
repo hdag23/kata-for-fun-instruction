@@ -109,6 +109,18 @@ class KataForFunServiceTests {
         Assertions.assertEquals("Fun", KataForFunService().convertNumber((76)))
     }
 
+    @Test
+    fun shouldReturnKataKataOnlyBecauseItIsDivisibleBy3AndContains3() {
+        Assertions.assertEquals("KataKata", KataForFunService().convertNumber((63)))
+        Assertions.assertEquals("KataKata", KataForFunService().convertNumber((36)))
+    }
+
+    @Test
+    fun shouldReturnForForOnlyBecauseItIsDivisibleBy5AndContains5() {
+        Assertions.assertEquals("ForFor", KataForFunService().convertNumber((50)))
+        Assertions.assertEquals("ForFor", KataForFunService().convertNumber((25)))
+    }
+
 
 
 }

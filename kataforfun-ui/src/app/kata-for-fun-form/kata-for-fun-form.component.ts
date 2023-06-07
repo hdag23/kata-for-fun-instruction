@@ -13,12 +13,17 @@ export class KataForFunFormComponent implements OnInit {
     formInputNumber: ['', Validators.required]
   })
 
+  inputNumber: number;
+  @Output() submitNumberOutput: EventEmitter<number> = new EventEmitter<number>();
+
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
   }
 
   submitNumber(): void {
+    this.inputNumber = this.convertForm.value.formInputNumber;
+    this.submitNumberOutput.emit(this.inputNumber);
   }
 
 }

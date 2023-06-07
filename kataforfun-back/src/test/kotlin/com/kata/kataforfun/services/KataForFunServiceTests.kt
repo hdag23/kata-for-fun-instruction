@@ -89,6 +89,26 @@ class KataForFunServiceTests {
         Assertions.assertFalse("KataFor".equals(KataForFunService().convertNumber(45)))
     }
 
+    @Test
+    fun shouldReturnKataOnlyBecauseItContains3() {
+        Assertions.assertEquals("Kata", KataForFunService().convertNumber(13))
+        Assertions.assertEquals("Kata", KataForFunService().convertNumber(23))
+        Assertions.assertEquals("Kata", KataForFunService().convertNumber(38))
+    }
+
+    @Test
+    fun shouldReturnForOnlyBecauseItContains5() {
+        Assertions.assertEquals("For", KataForFunService().convertNumber((52)))
+        Assertions.assertEquals("For", KataForFunService().convertNumber((56)))
+        Assertions.assertEquals("For", KataForFunService().convertNumber((151)))
+    }
+
+    @Test
+    fun shouldReturnFunOnlyBecauseItContains7() {
+        Assertions.assertEquals("Fun", KataForFunService().convertNumber((17)))
+        Assertions.assertEquals("Fun", KataForFunService().convertNumber((76)))
+    }
+
 
 
 }

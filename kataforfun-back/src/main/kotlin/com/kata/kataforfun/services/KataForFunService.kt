@@ -6,14 +6,12 @@ import org.springframework.stereotype.Component
 class KataForFunService {
 
     fun convertNumber(inputNumber: Int): String {
-        if(inputNumber == 0)
-            return "KataFor"
+
         if(inputNumber == 3)
             return "KataKata"
         if(inputNumber == 5)
             return "ForFor"
-        if(inputNumber == 7)
-            return "Fun"
+
         if(inputNumber == 15)
             return "KataForFor"
         if(inputNumber == 30)
@@ -21,7 +19,14 @@ class KataForFunService {
         if(inputNumber == 45)
             return "KataForFor"
 
-        return if (replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber).isEmpty()) inputNumber.toString() else replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber)
+        if (replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber).isNotEmpty())
+            return replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber)
+
+        if (replaceByKataOrForOrFunWhenItContains3Or5or7(inputNumber).isNotEmpty())
+            return replaceByKataOrForOrFunWhenItContains3Or5or7(inputNumber)
+
+        else
+            return inputNumber.toString()
     }
 
     /**
@@ -37,6 +42,24 @@ class KataForFunService {
         if(inputNumber % 5 == 0)
             replaceString += "For"
         return replaceString
+    }
+
+    fun replaceByKataOrForOrFunWhenItContains3Or5or7(inputNumber: Int): String {
+        var containsReplaceString: String = ""
+
+        for(digit in inputNumber.toString()) {
+            if(digit == '3') {
+                containsReplaceString += "Kata"
+            }
+            if(digit == '5') {
+                containsReplaceString +="For"
+            }
+            if(digit == '7') {
+                containsReplaceString +="Fun"
+            }
+
+        }
+        return containsReplaceString
     }
 
 

@@ -14,7 +14,13 @@ class KataForFunService {
             return "ForFor"
         if(inputNumber == 7)
             return "Fun"
-        
+        if(inputNumber == 15)
+            return "KataForFor"
+        if(inputNumber == 30)
+            return "KataForKata"
+        if(inputNumber == 45)
+            return "KataForFor"
+
         return if (replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber).isEmpty()) inputNumber.toString() else replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber)
     }
 

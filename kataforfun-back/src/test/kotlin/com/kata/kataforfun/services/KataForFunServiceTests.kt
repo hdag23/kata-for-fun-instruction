@@ -84,9 +84,9 @@ class KataForFunServiceTests {
 
     @Test
     fun shouldNotReturnKataForEvenIfItIsAMultipleOf3And5() {
-        Assertions.assertFalse("KataFor".equals(KataForFunService().convertNumber(15)))
-        Assertions.assertFalse("KataFor".equals(KataForFunService().convertNumber(30)))
-        Assertions.assertFalse("KataFor".equals(KataForFunService().convertNumber(45)))
+        Assertions.assertFalse("KataFor" == KataForFunService().convertNumber(15))
+        Assertions.assertFalse("KataFor" == KataForFunService().convertNumber(30))
+        Assertions.assertFalse("KataFor" == KataForFunService().convertNumber(45))
     }
 
     @Test
@@ -119,6 +119,25 @@ class KataForFunServiceTests {
     fun shouldReturnForForOnlyBecauseItIsDivisibleBy5AndContains5() {
         Assertions.assertEquals("ForFor", KataForFunService().convertNumber((50)))
         Assertions.assertEquals("ForFor", KataForFunService().convertNumber((25)))
+    }
+
+    @Test
+    fun inputNumberIsDivisibleBy3AndContains7() {
+        Assertions.assertEquals("KataFun", KataForFunService().convertNumber((27)))
+        Assertions.assertEquals("KataFun", KataForFunService().convertNumber((72)))
+    }
+
+    @Test
+    fun inputNumberIsDivisibleBy5AndContains7() {
+        Assertions.assertEquals("ForFun", KataForFunService().convertNumber((70)))
+    }
+
+
+    @Test
+    fun containsRuleDoesNotPrecedeDivisibleRule() {
+        Assertions.assertFalse("ForKata" == KataForFunService().convertNumber((51)))
+        Assertions.assertFalse("KataForFor" == KataForFunService().convertNumber((35)))
+        Assertions.assertFalse("FunForKataFor" == KataForFunService().convertNumber((75)))
     }
 
 

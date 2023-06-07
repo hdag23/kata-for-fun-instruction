@@ -1,5 +1,6 @@
 package com.kata.kataforfun.services
 
+import com.kata.kataforfun.enums.KataForFunEnum
 import org.springframework.stereotype.Component
 
 @Component
@@ -7,11 +8,10 @@ class KataForFunService {
 
     fun convertNumber(inputNumber: Int): String {
 
-        if (replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber).isEmpty() && replaceByKataOrForOrFunWhenItContains3Or5or7(inputNumber).isEmpty())
-            return inputNumber.toString()
-
+        return if (applyDivisibleRule(inputNumber).isEmpty() && applyContainsRule(inputNumber).isEmpty())
+            inputNumber.toString()
         else
-            return replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber) + replaceByKataOrForOrFunWhenItContains3Or5or7(inputNumber)
+            applyDivisibleRule(inputNumber) + applyContainsRule(inputNumber)
 
     }
 
@@ -20,14 +20,14 @@ class KataForFunService {
      * @param inputNumber number to replace
      * @return replace string
      */
-    fun replaceByKataOrForWhenItIsDivisibleBy3Or5(inputNumber: Int): String {
-        var replaceString: String = ""
+    fun applyDivisibleRule(inputNumber: Int): String {
+        var divisibleReplaceString: String = KataForFunEnum.EMPTY.value
 
         if(inputNumber % 3 == 0)
-            replaceString += "Kata"
+            divisibleReplaceString += KataForFunEnum.KATA.value
         if(inputNumber % 5 == 0)
-            replaceString += "For"
-        return replaceString
+            divisibleReplaceString += KataForFunEnum.FOR.value
+        return divisibleReplaceString
     }
 
     /**
@@ -35,18 +35,18 @@ class KataForFunService {
      * @param inputNumber number to replace
      * @return replace string
      */
-    fun replaceByKataOrForOrFunWhenItContains3Or5or7(inputNumber: Int): String {
-        var containsReplaceString: String = ""
+    fun applyContainsRule(inputNumber: Int): String {
+        var containsReplaceString: String = KataForFunEnum.EMPTY.value
 
         for(digit in inputNumber.toString()) {
             if(digit == '3') {
-                containsReplaceString += "Kata"
+                containsReplaceString += KataForFunEnum.KATA.value
             }
             if(digit == '5') {
-                containsReplaceString +="For"
+                containsReplaceString += KataForFunEnum.FOR.value
             }
             if(digit == '7') {
-                containsReplaceString +="Fun"
+                containsReplaceString += KataForFunEnum.FUN.value
             }
 
         }

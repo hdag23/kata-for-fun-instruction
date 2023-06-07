@@ -1,3 +1,9 @@
 <div class="container"> 
-    To Be Completed
+    <h2>Kata For Fun</h2>
+    <form [formGroup]="convertForm" (ngSubmit)="submitNumber()">
+        <div><label for="formInputNumber">Number to convert</label></div>
+        <div><input id="formInputNumber" type="text" formControlName="formInputNumber"></div>
+        <div class="submit"><button class="submit-button" type="submit" [disabled]="!convertForm.valid">Convert</button></div>
+    </form>
 </div>
+

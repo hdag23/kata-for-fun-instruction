@@ -1,42 +1,39 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { KataForFunService } from '../kata-for-fun.service';
 import { Result } from '../model/result';
 
 @Component({
   selector: 'app-kata-for-fun',
-  templateUrl: './kata-for-fun.component.html'
+  templateUrl: './kata-for-fun.component.html',
+  styleUrls: ['./kata-for-fun.component.css']
 })
 export class KataForFunComponent implements OnInit, OnDestroy {
 
-  result: Result;
+    result: Result;
 
-  testCases: NumberConverted[] = []; 
+    testCases: NumberConverted[] = []; 
 
-  constructor(private kataForFunService: KataForFunService) { }
+    constructor(private kataForFunService: KataForFunService) { }
 
-  ngOnInit(): void {
-    
-  }
+    ngOnInit(): void { }
 
-  ngOnDestroy(): void {
-  }
+    ngOnDestroy(): void { }
 
-  convertNumber(inputNumber: number): void {
-    let testCase: NumberConverted= {
-      numberToConvert: inputNumber,
-      result: ''
+    convertNumber(inputNumber: number): void {
+        let testCase: NumberConverted= {
+        numberToConvert: inputNumber,
+        result: ''
+        }
+
+        this.kataForFunService.convert(inputNumber)
+        .subscribe((data: Result) => {
+        this.result = data;
+        
+        testCase.result = this.result.result;
+        this.testCases.push(testCase);
+        })
+
     }
-
-    this.kataForFunService.convert(inputNumber)
-    .subscribe((data: Result) => {
-      this.result = data;
-      
-      testCase.result = this.result.result;
-      this.testCases.push(testCase);
-    })
-
-  }
 
 }
 

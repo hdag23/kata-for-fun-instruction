@@ -1,61 +1,58 @@
-import { TestBed, ComponentFixture, async } from "@angular/core/testing";
+import { TestBed, async, fakeAsync, tick } from "@angular/core/testing";
 import { KataForFunComponent } from "./kata-for-fun.component"
 import { KataForFunService } from "../kata-for-fun.service";
-import { HttpClient } from "@angular/common/http";
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Result } from "../model/result";
-import { DebugElement } from "@angular/core";
-import { By } from "@angular/platform-browser";
+import { BrowserModule, By } from "@angular/platform-browser";
+import { KataForFunFormComponent } from "../kata-for-fun-form/kata-for-fun-form.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 describe('KataForFunComponent', () => {
-    let fixture: ComponentFixture<KataForFunComponent>;
-    let component: KataForFunComponent
-    let httpTestingControllerMock: HttpTestingController;
-    let httpClient: HttpClient;
+
+    let httpTestingController: HttpTestingController;
     let kataForFunService: KataForFunService;
-    let debugElement: DebugElement;
 
     beforeEach(async() => {
         TestBed.configureTestingModule({
             declarations: [
-                KataForFunComponent
+                KataForFunComponent,
+                KataForFunFormComponent
             ],
             providers: [
-                {provide: KataForFunService}
-            ], imports: [HttpClientTestingModule]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(KataForFunComponent);
-            component = fixture.componentInstance;
-            debugElement = fixture.debugElement.query(By.css('p'));
-            
+                KataForFunService
+            ], 
+            imports: [
+                HttpClientTestingModule,
+                BrowserModule,
+                FormsModule,
+                ReactiveFormsModule
+            ]
         });
-
-        httpClient = TestBed.inject(HttpClient);
-        httpTestingControllerMock = TestBed.inject(HttpTestingController);
+        httpTestingController = TestBed.inject(HttpTestingController);
         kataForFunService = TestBed.inject(KataForFunService);
-
+            
     });
 
 
+    it('should return the expected result', fakeAsync(() => {
+        let result: Result;
+        const expectedResult = {result: '1'};
+        kataForFunService.convert(1)
+        .subscribe(data => {
+            result = data;
+        });
 
-    it('should call HttpClient.get', async(() => {
-        httpClient.get<Result>(kataForFunService.CONVERSION_RESULT_URL + '15')
-        .subscribe(data => expect(data.result).toEqual("KataFor"));
+        httpTestingController.expectOne(kataForFunService.CONVERSION_RESULT_URL + '1').flush({result: '1'});
+        tick();
+        expect(result).toEqual(expectedResult);
 
-        const req = httpTestingControllerMock.expectOne(kataForFunService.CONVERSION_RESULT_URL + '15');
-        expect(req.request.url).toEqual(kataForFunService.CONVERSION_RESULT_URL + '15');
-
-        
     }))
 
-    it('should have', async(() => {
-        httpClient.get<Result>(kataForFunService.CONVERSION_RESULT_URL + '1')
-        
-        const numberOfTestCase = fixture.componentInstance.testCases.length
-        expect(numberOfTestCase).toEqual(1);
-        
-    }))
+    afterEach(() => {
+        httpTestingController.verify();
+    });
+
+});
 
 
-})

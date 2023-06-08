@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-kata-for-fun-form',
@@ -8,7 +8,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class KataForFunFormComponent implements OnInit {
 
-
   convertForm = this.formBuilder.group({
     formInputNumber: ['', Validators.required]
   })
@@ -16,10 +15,9 @@ export class KataForFunFormComponent implements OnInit {
   inputNumber: number;
   @Output() submitNumberOutput: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   submitNumber(): void {
     this.inputNumber = this.convertForm.value.formInputNumber;
@@ -27,3 +25,5 @@ export class KataForFunFormComponent implements OnInit {
   }
 
 }
+
+

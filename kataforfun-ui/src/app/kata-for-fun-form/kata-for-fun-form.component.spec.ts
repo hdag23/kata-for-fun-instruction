@@ -1,4 +1,4 @@
-import { TestBed, async, ComponentFixture } from "@angular/core/testing";
+import { TestBed, async, ComponentFixture, fakeAsync } from "@angular/core/testing";
 import { DebugElement } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule, By } from "@angular/platform-browser";
@@ -20,17 +20,25 @@ describe('KataForFunFormComponent', () =>{
                 FormsModule,
                 ReactiveFormsModule
             ]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(KataForFunFormComponent);
-            component = fixture.componentInstance;
-            debugElement = fixture.debugElement.query(By.css('form'));
-            element = debugElement.nativeElement;
         });
     }));
 
-    it('should have as set submitted to true', async(() => {
-        component.submitNumber();
-        expect(component.submitNumber).toBeTruthy();
+    it('should have as set submitted to true', fakeAsync(() => {
+        fixture = TestBed.createComponent(KataForFunFormComponent);
+        component = fixture.componentInstance;
+        debugElement = fixture.debugElement.query(By.css('form'));
+        element = debugElement.nativeElement;
+
+        component.submitNumber()
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            expect(component.submitNumber).toBeTruthy();
+        })
     }));
+
+    it('form should be invalid', fakeAsync(() => {
+        component.convertForm.controls['formInputNumber'].setValue('');
+        expect(component.convertForm.valid).toBeFalsy();
+    }))
 })
 
